@@ -4,7 +4,7 @@ import java.util.Arrays;
  * @author andrei
  *
  */
-public class QucikSort {
+public class MergeSort {
 
 	public static void Sort(int [] arr) {
 		

@@ -1,50 +1,39 @@
-import java.util.Arrays;
-
 /**
- * @author andrei
- *
+ * @author Andrei Geadau
+ *The full implementation of QueueList can be found in my other directories
  */
-public class QucikSort {
-
-	public static void Sort(int [] arr) {
+public class QuickSort {
+	
+	public static void sort(QueueList<Integer> q) {
 		
-		int n = arr.length;
-		
-		//BASE CASE
-		if(n<2) {
+		if(q.size() < 2) {
 			return;
 		}
 		
-		//DIVIDE
-		int mid = n/2;
-		int [] arr1 = Arrays.copyOfRange(arr, 0, mid);
-		int [] arr2 = Arrays.copyOfRange(arr, mid, n);
+		//Divide
+		int pivot = q.first();
+		QueueList<Integer> L = new QueueList<>();
+		QueueList<Integer> E = new QueueList<>();
+		QueueList<Integer> G = new QueueList<>();
 		
+		while(!q.isEmpty()) {
+			int el = q.deque();
+			if(el<pivot) {
+				L.enque(el);
+			}else if(el > pivot) {
+				G.enque(el);
+			}else {
+				E.enque(el);
+			}
+		}
+
 		//CONQUER
-		Sort(arr1);
-		Sort(arr2);
+		sort(L);
+		sort(G);
 		
 		//MERGE
-		int i=0, j=0;
-		
-		while(i< arr1.length && j<arr2.length) {
-			if(arr1[i]<arr2[j]) {
-				arr[i+j] = arr1[i++];
-			}else {
-				arr[i+j] = arr2[j++];
-			}
-		}
-		
-		//copy the remaining el, if any
-		while(i<arr1.length) {arr[i+j] = arr[i++];}
-		while(j<arr2.length) {arr[i+j] = arr[j++];}
+		while(!L.isEmpty()) {q.enque(L.deque());}
+		while(!E.isEmpty()) {q.enque(E.deque());}
+		while(!G.isEmpty()) {q.enque(G.deque());}
 	}
-	
-	 //useful method for viewing the recursive calls
-		public static void print(int [] arr) {
-			for(int i =0; i<arr.length ; i++) {
-				System.out.print(arr[i] + " ");
-			}
-			System.out.println();
-		}
 }

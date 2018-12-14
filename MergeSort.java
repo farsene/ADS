@@ -1,8 +1,7 @@
 import java.util.Arrays;
 
 /**
- * @author andrei
- *
+ * @author Andrei Geadau
  */
 public class MergeSort {
 

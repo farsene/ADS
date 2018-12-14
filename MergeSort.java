@@ -9,8 +9,7 @@ public class QucikSort {
 
 
 	public static void Sort(int [] arr) {
-		print(arr);
-		
+
 		//base case, nothing to be sorted
 		if(arr.length <2) {
 			return;
@@ -48,7 +47,6 @@ public class QucikSort {
 		    }
 		    
 		    if(arr2 == null){
-		    // return System.arraycopy(arr1, 0, new int [], 0, 1);
 		    return null;
 		    }
 		    

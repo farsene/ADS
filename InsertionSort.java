@@ -1,20 +1,11 @@
 /**
- * 
- */
-
-/**
- * @author andrei
- *
+ * @author Andrei Geadau
  */
 public class InsertionSort {
 
-	
-	
 	public static void Sort(int [] arr) {
 		
-		if(arr == null || arr.length <=1) {
-			return;
-		}
+		if(arr == null || arr.length <=1) {return;}
 		
 		int n= arr.length;
 		

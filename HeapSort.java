@@ -1,73 +1,95 @@
-public class HeapSort {
-	
-	public static void main(String[] args) {
-		
-		int [] arr = {2,6,4,7,9,5};
-		sort(arr);
-		print(arr);
-	}
-	
-	//recursive function
-    static void heapify(int arr[], int n, int i) 
-    { 
-        int largest = i; // Initialize largest as root 
-        int l = 2*i + 1; // left = 2*i + 1 
-        int r = 2*i + 2; // right = 2*i + 2 
-  
-        // If left child is larger than root 
-        if (l < n && arr[l] > arr[largest]) 
-            largest = l; 
-  
-        // If right child is larger than largest so far 
-        if (r < n && arr[r] > arr[largest]) 
-            largest = r; 
-  
-        // If largest is not root 
-        if (largest != i) 
-        { 
-            int swap = arr[i]; 
-            arr[i] = arr[largest]; 
-            arr[largest] = swap; 
-  
-            // Recursively heapify the affected sub-tree 
-            heapify(arr, n, largest); 
-        }
+class Solution {
+  /**
+   * Swaps two elements in an array.
+   *
+   * @param a
+   *     The array to swap elements in.
+   * @param i
+   *     Position of element to swap in a.
+   * @param j
+   *     Position of element to swap in a.
+   */
+  public static void swap(int[] a, int i, int j) {
+    int t = a[i];
+    a[i] = a[j];
+    a[j] = t;
+  }
+
+  /**
+   * Restores the heap property in a heap represented as an array.
+   * When the heap property is invalid at root,
+   * the method fixes the heap first locally before fixing the affected subtree.
+   *
+   * @param heap
+   *     Array representation of a heap, which might be invalidated.
+   * @param root
+   *     Index of the root of the heap, which might be a subtree of the overall heap.
+   * @param range
+   *     Index of the last element in the heap, array elements with an index > range are not part of the heap.
+   */
+  public static void downHeap(int[] heap, int root, int range) {
+    // index of left and right children
+    int left = 2 * root + 1;
+    int right = 2 * root + 2;
+
+    int largest = root;
+
+    if (left < range && heap[left] > heap[root])
+      largest = left;
+    else
+      largest = root;
+
+    if (right < range && heap[right] > heap[largest])
+      largest = right;
+
+    // heap property invalid at root
+    if (largest != root) {
+      swap(heap, root, largest);
+      downHeap(heap, largest, range);
     }
-	
-	
-	
-	
-	
-	public static void sort(int arr[]) 
-    { 
-        int n = arr.length; 
+  }
+
+  /**
+   * Turns an array of integers into a heap.
+   * This is an in-place algorithm, the heap is built in the array itself.
+   *
+   * @param array
+   *     an array of integer numbers.
+   *     On return, this array represents a valid heap.
+   */
+  public static void heapify(int[] array) {
+    int n = array.length;
+    
+    for(int i=n/2-1; i>=0;i--){
+      downHeap(array, i, n);
+    }
+  }
+
+  /**
+   * Sorts an array of integer numbers.
+   * This is an in-place algorithm, the elements inside the array are being sorted without creating a copy of the array.
+   *
+   * @param array
+   *     An array of integer numbers.
+   *     On return, this array is sorted.
+   */
+  public static void inPlaceHeapSort(int[] array) {
+   
+      heapify(array);
+      
+      for(int i = array.length-1; i>=0; i--){
+        swap(array, i, 0);
+        downHeap(array, 0, i);
+      }
+      
+  }
   
-        // Build heap (rearrange array) 
-        for (int i = n / 2 - 1; i >= 0; i--) 
-            heapify(arr, n, i); 
-        
   
-        // One by one extract an element from heap 
-        for (int i=n-1; i>=0; i--) 
-        { 
-            // Move current root to end 
-            int temp = arr[0]; 
-            arr[0] = arr[i]; 
-            arr[i] = temp; 
-  
-            // call max heapify on the reduced heap 
-            heapify(arr, i, 0); 
-        } 
-    } 
-	
-	
-	public static void print(int[]arr) {
+  public static void print(int[]arr) {
 		for(int i =0 ;i<arr.length; i++) {
 			System.out.print(arr[i] + " ");
 		}
 		System.out.println("");
 	}
-	
-	
-
 }
+//

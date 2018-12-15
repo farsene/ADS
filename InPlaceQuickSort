@@ -1,0 +1,39 @@
+class Solution {
+  /**
+   * @param elements
+   *     Array of integers to be sorted.
+   */
+  public static void quickSort(int[] elements) {
+    //call the recursive function
+    quickSort(elements, 0, elements.length-1);
+  }
+  
+  //the recursive function
+  public static void quickSort(int[] arr, int left, int right){
+    if(left>=right)return; //nothing can be done
+    
+    //or it can be chosen randomly among the elements of the array
+    int pivot = arr[(left+right)/2];
+    int index = partition(arr,left,right,pivot);
+    quickSort(arr,left,index-1);
+    quickSort(arr,index,right);
+  }
+  
+  public static int partition(int[] arr, int left,int right, int pivot){
+    while(left<=right){
+      while(arr[left]<pivot)left++;
+      while(arr[right]>pivot)right--;
+      
+      if(left<=right){
+        //swap
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        //increment left and decrement right
+        left++;
+        right--;
+      }
+    }
+    return left;
+  }
+}
